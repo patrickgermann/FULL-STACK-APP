@@ -53,7 +53,7 @@ export default class UserSignUp extends Component {
                   type="text"
                   value={emailAddress} 
                   onChange={this.change} 
-                  placeholder="User Name" />
+                  placeholder="Email Address" />
                 <input 
                   id="password" 
                   name="password"
@@ -91,16 +91,19 @@ export default class UserSignUp extends Component {
 
   submit = () => {
     const { context } = this.props;
-    const { firstName, lastName, emailAddress, password, confirmPassword } = this.state;
+    const { firstName, lastName, emailAddress, password } = this.state;
 
     // New user payload
-    const user = { firstName, lastName, emailAddress, password };
-    console.log(user);
+    const user = {
+      firstName,
+      lastName,
+      emailAddress,
+      password };
 
     context.data.createUser(user)
-      .then( error => {
-        if (error.length) {
-          this.setState({ error });
+      .then( errors => {
+        if (errors.length) {
+          this.setState({ errors });
           console.log(`${emailAddress} produced an error!`);
         } else {
           console.log(`${emailAddress} is successfully signed up and authenticated!`);
