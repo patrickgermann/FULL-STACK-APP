@@ -4,17 +4,21 @@ import Form from './Form';
 
 export default class UserSignUp extends Component {
   state = {
-    name: '',
-    username: '',
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
     password: '',
+    confirmPassword: '',
     errors: [],
   }
 
   render() {
     const {
-      name,
-      username,
+      firstName,
+      lastName,
+      emailAddress,
       password,
+      confirmPassword,
       errors,
     } = this.state;
 
@@ -30,17 +34,24 @@ export default class UserSignUp extends Component {
             elements={() => (
               <React.Fragment>
                 <input 
-                  id="name" 
-                  name="name" 
+                  id="firstName" 
+                  name="firstName" 
                   type="text"
-                  value={name} 
+                  value={firstName} 
                   onChange={this.change} 
-                  placeholder="Name" />
+                  placeholder="First Name" />
                 <input 
-                  id="username" 
-                  name="username" 
+                  id="lastName" 
+                  name="lastName" 
                   type="text"
-                  value={username} 
+                  value={lastName} 
+                  onChange={this.change} 
+                  placeholder="Last Name" />
+                <input 
+                  id="emailAddress" 
+                  name="emailAddress" 
+                  type="text"
+                  value={emailAddress} 
                   onChange={this.change} 
                   placeholder="User Name" />
                 <input 
@@ -50,6 +61,13 @@ export default class UserSignUp extends Component {
                   value={password} 
                   onChange={this.change} 
                   placeholder="Password" />
+                <input 
+                  id="confirmPassword" 
+                  name="confirmPassword"
+                  type="password"
+                  value={confirmPassword} 
+                  onChange={this.change} 
+                  placeholder="Confirm Password" />
               </React.Fragment>
             )} />
           <p>
@@ -72,10 +90,29 @@ export default class UserSignUp extends Component {
   }
 
   submit = () => {
+    const { context } = this.props;
+    const { firstName, lastName, emailAddress, password, confirmPassword } = this.state;
 
+    // New user payload
+    const user = { firstName, lastName, emailAddress, password };
+    console.log(user);
+
+    context.data.createUser(user)
+      .then( error => {
+        if (error.length) {
+          this.setState({ error });
+          console.log(`${emailAddress} produced an error!`);
+        } else {
+          console.log(`${emailAddress} is successfully signed up and authenticated!`);
+        }
+      })
+      .catch( err => { // handle rejected promises
+        console.log(err);
+        this.props.history.push('/error'); // push error route to history stack
+      });
   }
 
   cancel = () => {
-
+    this.props.history.push('/');
   }
 }
