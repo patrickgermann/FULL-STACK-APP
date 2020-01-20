@@ -91,16 +91,24 @@ export default class UserSignUp extends Component {
 
   submit = () => {
     const { context } = this.props;
-    const { firstName, lastName, emailAddress, password } = this.state;
+    const {
+      firstName,
+      lastName,
+      emailAddress,
+      password,
+      confirmPassword
+    } = this.state;
 
     // New user payload
     const user = {
       firstName,
       lastName,
       emailAddress,
-      password };
-
-    context.data.createUser(user)
+      password
+    };
+    
+    if (password === confirmPassword) {
+      context.data.createUser(user)
       .then( errors => {
         if (errors.length) {
           this.setState({ errors });
@@ -113,6 +121,9 @@ export default class UserSignUp extends Component {
         console.log(err);
         this.props.history.push('/error'); // push error route to history stack
       });
+    } else {
+      console.log("Passwords doesn't match!");
+    } 
   }
 
   cancel = () => {
