@@ -115,6 +115,10 @@ export default class UserSignUp extends Component {
           console.log(`${emailAddress} produced an error!`);
         } else {
           console.log(`${emailAddress} is successfully signed up and authenticated!`);
+          context.actions.signIn(emailAddress, password)
+            .then(() => {
+              this.props.history.push('/authenticated');
+            });
         }
       })
       .catch( err => { // handle rejected promises
