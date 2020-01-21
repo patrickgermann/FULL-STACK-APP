@@ -41,7 +41,7 @@ export class Provider extends Component {
       //console.log(user);
       this.setState(() => {
         return {
-          authenticatedUser: true,
+          authenticatedUser: user,
         };
       });
       // Set cookie
