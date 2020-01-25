@@ -7,7 +7,10 @@ import {
 
 
 import Header from './components/Header';
-import Public from './components/Public';
+import Courses from './components/Courses';
+import CourseDetail from './components/CourseDetail';
+import CreateCourse from './components/CreateCourse';
+import UpdateCourse from './components/UpdateCourse';
 import NotFound from './components/NotFound';
 import UserSignUp from './components/UserSignUp';
 import UserSignIn from './components/UserSignIn';
@@ -28,7 +31,11 @@ export default () => (
       <HeaderWithContext />
 
       <Switch>
-        <Route exact path="/" component={Public} />
+        <Route exact path="/" component={Courses} />
+        <Route exact path="/coursedetail" component={CourseDetail} />
+        <Route exact path="/createcourse" component={CreateCourse} />
+        <Route exact path="/updatecourse" component={UpdateCourse} />
+        <Route exact path="/" component={Courses} />
         <PrivateRoute path="/authenticated" component={AuthWithContext} />
         <PrivateRoute path="/settings" component={AuthWithContext} />
         <Route path="/signin" component={UserSignInWithContext} />
