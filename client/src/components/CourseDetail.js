@@ -38,7 +38,8 @@ render() {
             <div className="course--header">
                 <h4 className="course--label">Course</h4>
                 <h3 className="course--title">{this.state.course.title}</h3>
-                <p>By Patrick {this.state.course.owner.lastName}</p>
+                <p>By firstName lastName</p>
+                {/* <p>By {this.state.course.owner.firstName} {this.state.course.owner.lastName}</p> */}
             </div>
             <div className="course--description">
             <p>{ this.state.course.description }</p>
