@@ -14,12 +14,11 @@ async componentDidMount(){
   console.log('Path: ', path);
 
   const courseDetails = await context.data.getCourse(path);
-  console.log('Object: ', courseDetails);
   
   this.setState({
       course: courseDetails
   });
-  console.log(this.state);
+  console.log('State is:', this.state);
   
 }  
 
@@ -40,7 +39,7 @@ render() {
             <div className="course--header">
                 <h4 className="course--label">Course</h4>
                 <h3 className="course--title">{this.state.course.title}</h3>
-                <p>By Patrick {this.state.course.lastName}</p>
+                <p>By Patrick {this.state.course.owner.lastName}</p>
             </div>
             <div className="course--description">
             <p>{ this.state.course.description }</p>
