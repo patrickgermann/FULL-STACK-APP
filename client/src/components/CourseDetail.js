@@ -19,7 +19,6 @@ async componentDidMount(){
       course: courseDetails
   });
   console.log('State is:', this.state);
-  
 }  
 
 
