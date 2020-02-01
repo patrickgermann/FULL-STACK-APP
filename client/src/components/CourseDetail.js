@@ -3,46 +3,53 @@ import { Link } from "react-router-dom";
 
 export default class CourseDetail extends Component {
     
-    constructor() {
-        super();
-        this.state = {
-            course: {
-                user: {
-
-                }
-            }
-        }
-    }
+  state = {
+    course: [],
+  };
   
-componentDidMount() {
-    // Call courses api using the id of the desired course to grab details to display
-    fetch(`//localhost:5000/api/courses/${this.props.match.params.id}`)
-        .then(res => {
-        // Handle server error, otherwise parse response
-        if (res.status === 500) {
-            this.props.history.push('/error');
-        } else {
-            return res.json();
-        }
-        })
-        .then(resData => {
-        // If course does not exist, route to /notfound to display friendly not found message
-        // Otherwise, set the state to the course details
-        if (resData === null) {
-            this.props.history.push('/notfound');
-        } else {
-            this.setState({
-                courseData: resData
-            })
-        }
-    })
-}
+  /*
+  async componentDidMount() {
+      // Call courses api using the id of the desired course to grab details to display
+      await fetch(`//localhost:5000/api/courses/${this.props.match.params.id}`)
+          .then(res => {
+          // Handle server error, otherwise parse response
+          if (res.status === 500) {
+              this.props.history.push('/error');
+          } else {
+              return res.json();
+          }
+          })
+          .then(resData => {
+          // If course does not exist, route to /notfound to display friendly not found message
+          // Otherwise, set the state to the course details
+          if (resData === null) {
+              this.props.history.push('/notfound');
+          } else {
+              this.setState({
+                  courseData: resData
+              })
+          }
+      })
+  }
+*/
+
+async componentDidMount(){
+  const { context } = this.props;
+  const path = this.props.location.pathname;
+  console.log('Path: ', path);
+
+  const courseDetails = await context.data.getCourse(path);
+  console.log('Object: ', courseDetails);
+  
+  this.setState({
+      course: courseDetails
+  });
+  console.log(this.state);
+  
+}  
+
 
 render() {
-    //console.log(this.state.courseData);
-    const details = this.state.courseData;
-    console.log(details);
-
     return (
         <div>
         <div className="actions--bar">
@@ -57,7 +64,7 @@ render() {
           <div className="grid-66">
             <div className="course--header">
                 <h4 className="course--label">Course</h4>
-                <h3 className="course--title">Course Title</h3>
+                <h3 className="course--title">{this.state.course.title}</h3>
                 <p>By Patrick Germann</p>
             </div>
             <div className="course--description">
