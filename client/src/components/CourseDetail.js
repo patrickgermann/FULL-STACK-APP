@@ -20,7 +20,6 @@ async componentDidMount(){
   this.setState({
       course: courseDetails
   });
-  console.log('State is:', this.state);
 }  
 
 
@@ -32,7 +31,7 @@ render() {
             <div className="grid-100"><span>
                 <Link className="button" to={`/courses/${this.props.match.params.id}/update`}>Update Course</Link>
                 <Link className="button" onClick={this.deleteCourse} to='/courses/delete'>Delete Course</Link></span>
-                <a className="button button-secondary" href="index.html">Return to List</a></div>
+                <a className="button button-secondary" href="/">Return to List</a></div>
           </div>
         </div>
         <div className="bounds course--detail">
