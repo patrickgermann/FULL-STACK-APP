@@ -22,7 +22,6 @@ componentDidMount() {
 render() {
 
     const { courses } = this.state;
-    console.log(courses);
 
     return (
 

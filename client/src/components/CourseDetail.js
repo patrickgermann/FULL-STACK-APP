@@ -22,67 +22,67 @@ export default class CourseDetail extends Component {
     });
   }  
 
-
   render() {
 
     const { context } = this.props;
     const { course } = this.state; 
     const teacher = this.state.course.owner;
     const authUser = context.authenticatedUser;
-    
 
     // for Markdown, we need String literals
     const description = `${course.description}`;
     const materials = `${course.materialsNeeded}`;
 
     return (
-      <div className="actions--bar">
-        {/* Buttons */}
-        <div className="bounds">
-          <div className="grid-100">
+      <div>        
+        <div className="actions--bar"> {/* Buttons */}
+          <div className="bounds">
+            {/* If course is from authenticated user, show update/delete */}
             { authUser === null || authUser.id !== teacher.id
               ?
-              <span></span>
+              <div className="grid-100">
+                <Link className="button button-secondary" to={`/`}>Return to List</Link>
+              </div>
               :
-              <span>
+              <div className="grid-100">
                 <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
                 <Link className="button" onClick={this.deleteCourse} to='/courses/delete'>Delete Course</Link>
-              </span>
+                <Link className="button button-secondary" to={`/`}>Return to List</Link>
+              </div>
             }
-            <a className="button button-secondary" href="/">Return to List</a>
           </div>
         </div>
-          {/* Course details */}
-          <div className="bounds course--detail">
-            <div className="grid-66">
-              {/* Course title */}
-              <div className="course--header">
-                <h4 className="course--label">Course</h4>
-                <h3 className="course--title">{course.title}</h3>
-                <p>By {teacher.firstName} {teacher.lastName}</p>
-              </div>
-              {/* Course description */}
-              <div className="course--description">
-                <ReactMarkdown source = { description } />
-              </div>
+        {/* Course details */}
+        <div className="bounds course--detail">
+          <div className="grid-66">
+            {/* Course title */}
+            <div className="course--header">
+              <h4 className="course--label">Course</h4>
+              <h3 className="course--title">{course.title}</h3>
+              <p>By {teacher.firstName} {teacher.lastName}</p>
             </div>
-            <div className="grid-25 grid-right">
-              {/* Course time and materials */}
-              <div className="course--stats">
-              <ul className="course--stats--list">
-                <li className="course--stats--list--item">
-                  <h4>Estimated Time</h4>
-                  <h3>{course.estimatedTime}</h3>
-                </li>
-                <li className="course--stats--list--item">
-                  <h4>Materials Needed</h4>
-                  <ReactMarkdown source = { materials } />
-                </li>
-              </ul>
+            {/* Course description */}
+            <div className="course--description">
+              <ReactMarkdown source = { description } />
             </div>
+          </div>
+          <div className="grid-25 grid-right">
+            {/* Course time and materials */}
+            <div className="course--stats">
+            <ul className="course--stats--list">
+              <li className="course--stats--list--item">
+                <h4>Estimated Time</h4>
+                <h3>{course.estimatedTime}</h3>
+              </li>
+              <li className="course--stats--list--item">
+                <h4>Materials Needed</h4>
+                <ReactMarkdown source = { materials } />
+              </li>
+            </ul>
           </div>
         </div>
       </div>
+    </div>
     );
   }
 
