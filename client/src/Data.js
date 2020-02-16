@@ -56,6 +56,21 @@ export default class Data {
 
   // *** Courses mothodes ***
 
+    // GET all courses
+    async getCourses() {
+      const response = await this.api(`/courses`);
+      if (response.status === 200) {
+        return response.json().then(data => data);
+
+      }
+      else if (response.status === 401) {
+        return null;
+      }
+      else {
+        throw new Error();
+      }
+  }
+
   // GET details of course
   async getCourse(id) {
       const response = await this.api(`/courses/${id}`, 'GET', null, false);
