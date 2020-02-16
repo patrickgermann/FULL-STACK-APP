@@ -39,15 +39,22 @@ export default class CourseDetail extends Component {
     const description = `${course.description}`;
     const materials = `${course.materialsNeeded}`;
 
-
     return (
       <div>
       {/* Buttons */}
         <div className="actions--bar">
           <div className="bounds">
-            <div className="grid-100"><span>
-                <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
-                <Link className="button" onClick={this.deleteCourse} to='/courses/delete'>Delete Course</Link></span>
+            <div className="grid-100">
+              {/* conditionally render "Update" and "Delete" buttons */}
+              { authUser === null || authUser.id !== teacher.id
+                  ?
+                  <span></span>
+                  :
+                  <span>
+                    <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
+                    <Link className="button" onClick={this.deleteCourse} to='/courses/delete'>Delete Course</Link>
+                  </span>
+              }
                 <a className="button button-secondary" href="/">Return to List</a></div>
           </div>
         </div>
