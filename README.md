@@ -20,14 +20,15 @@ You need to deploy and start the API first:
 1. Navigate to project folder and open Terminal
 2. Open API subfolder: `cd api`
 3. Install modules using npm: `npm install`
-4. Launch the API project: `npm start` 
+4. Seed the SQLite database: `npm run seed`
+5. Launch the API project: `npm start` 
 
 The API will be running on `localhost:5000`
 
-5. Now open a new Terminal for the project folder
-6. Open API subfolder: `cd client`
-7. Install modules using npm: `npm install`
-8. Launch the API project: `npm start` 
+6. Now open a new Terminal for the project folder
+7. Open API subfolder: `cd client`
+8. Install modules using npm: `npm install`
+9. Launch the API project: `npm start` 
 
 The React Client will open a browser page for `localhost:3000`
 
