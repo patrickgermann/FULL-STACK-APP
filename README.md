@@ -1,16 +1,41 @@
 # Full Stack App with React and a REST API
-## Treehouse Project #10
+### Treehouse Project #10
 
-In your final project, you’ll use React to create a client for your existing school database REST API (that you created in a previous project). The full stack application will provide a way for users to administer a school database containing information about courses: users can interact with the database by retrieving a list of courses, viewing detail for a specific course, as well as creating, updating and deleting courses in the database.
+## Course Database Backend
 
-In addition, the project will require users to create an account and sign in to make changes to the database. Implementing these features will push your React skills to new heights.
+Backend API to read/write to a SQLite Database with Course information.
+- Defined API calls for Frontend app.
 
-To complete this project, you’ll use your knowledge of React, JSX, React Router, React Context API, and Create React App.
+## Course Manager Frontend
 
-After using the Create React App tool to set up your initial project, you'll:
+Course Manager to create, update and delete Courses.
 
-- Use JavaScript and JSX to build out the components for your application in a modular fashion.
-- Use React Router to set up your routes.
-- Use the Fetch API or a tool like Axios to fetch data from your REST API.
-- Allow users to sign up and use basic authentication to support users signing in.
-- Add to the supplied CSS to personalize the project.
+- Authentication by E-Mail and Password.
+- Users not signed-in can see all available courses.
+- Signed-In users can create new courses and update/delete their own courses.
+
+## Instructions to deploy app
+You need to deploy and start the API first:
+
+1. Navigate to project folder and open Terminal
+2. Open API subfolder `cd api`
+3. Install modules using npm: `npm install`
+4. Launch the API project: `npm start` 
+
+The API will be running on `localhost:5000`
+
+5. Now open a new Terminal for the project folder
+6. Open API subfolder `cd client`
+7. Install modules using npm: `npm install`
+8. Launch the API project: `npm start` 
+
+The React Client will open a browser page for `localhost:3000`
+
+Now API and client are up and running, you can start using it!
+
+## Technology
+### Frontend
+React, JSX, Create React App, React Router, React Context API, React authentication, React Markdown, and working with APIs.
+
+### Backend
+Node & npm, Express, Sequelize, SQLite3
