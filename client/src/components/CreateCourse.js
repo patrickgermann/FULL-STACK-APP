@@ -3,15 +3,20 @@ import Form from './Form';
 
 export default class CreateCourse extends Component {
   state = {
+    userId: this.props.context.authenticatedUser.id,
     title: '',
     description: '',
     estimatedTime: '',
     materialsNeeded: '',
     errors: [],
   }
-
-
+  
   render() {
+     const { context } = this.props;
+     console.log(context);
+    // teacher is the user signed in 
+    const teacher = `${context.authenticatedUser.firstName} ${context.authenticatedUser.lastName}`;
+
     const {
       title,
       description,
@@ -19,8 +24,6 @@ export default class CreateCourse extends Component {
       materialsNeeded,
       errors,
     } = this.state;
-
-    // const user = this.props.context.authenticatedUser;
 
     return (
       <div className='bounds course--detail'>
@@ -49,8 +52,7 @@ export default class CreateCourse extends Component {
                     />
                   </div>
                   <p>
-                    By Patrick Germann
-                    {/* By {user.firstName} {user.lastName} */}
+                    By {`${ teacher }`}
                   </p>
                 </div>
                 <div className='course--description'>
@@ -109,6 +111,7 @@ export default class CreateCourse extends Component {
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+
     this.setState(() => {
       return {
         [name]: value
@@ -118,18 +121,47 @@ export default class CreateCourse extends Component {
 
   submit = () => {
     const { context } = this.props;
-    const { title, description, estimatedTime, materialsNeeded } = this.state;
+    
+    const {
+      userId,
+      title,
+      description,
+      estimatedTime,
+      materialsNeeded
+    } = this.state;
+
+
     {/* const emailAddress = context.authenticatedUser.emailAddress;
     const password = context.authenticatedUser.password;
     const userId = context.authenticatedUser.id; */}
+    
     const course = {
+      userId,
       title,
       description,
       estimatedTime,
       materialsNeeded,
-      //userId
-    }
-    console.log(course);
+    };
+
+    //console.log(course);
+
+    context.data.createCourse( course, context.authenticatedUser.emailAddress, context.authenticatedUser.password )
+    // if the promise is an array of errors, set the errors state of this class to the array
+      .then( errors => {
+          if(errors.length){
+              this.setState( { errors } );
+          } else {
+              context.actions.signIn( context.authenticatedUser.emailAddress, context.authenticatedUser.password )
+                  .then(() => {
+                      this.props.history.push('/');
+                  });
+            }
+      })
+      // handle rejected promises
+      .catch(err => {
+          this.props.history.push('/error'); // push to history stack
+
+      });
   }
 
   cancel = () => {
