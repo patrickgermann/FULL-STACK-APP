@@ -34,7 +34,7 @@ export default () => (
 
       <Switch>
         <Route exact path="/" component={Courses} />
-        <Route exact path="/courses/create" component={CreateCourseWithContext} />
+        <PrivateRoute exact path="/courses/create" component={CreateCourseWithContext} />
         <Route exact path="/courses/:id" component={CourseDetailWithContext} />
         <Route exact path="/updatecourse" component={UpdateCourse} />
         <PrivateRoute path="/authenticated" component={AuthWithContext} />

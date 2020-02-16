@@ -13,7 +13,7 @@ export default class CreateCourse extends Component {
   
   render() {
      const { context } = this.props;
-     console.log(context);
+
     // teacher is the user signed in 
     const teacher = `${context.authenticatedUser.firstName} ${context.authenticatedUser.lastName}`;
 
@@ -131,9 +131,8 @@ export default class CreateCourse extends Component {
     } = this.state;
 
 
-    {/* const emailAddress = context.authenticatedUser.emailAddress;
+    const emailAddress = context.authenticatedUser.emailAddress;
     const password = context.authenticatedUser.password;
-    const userId = context.authenticatedUser.id; */}
     
     const course = {
       userId,
@@ -145,13 +144,13 @@ export default class CreateCourse extends Component {
 
     //console.log(course);
 
-    context.data.createCourse( course, context.authenticatedUser.emailAddress, context.authenticatedUser.password )
+    context.data.createCourse( course, emailAddress, password )
     // if the promise is an array of errors, set the errors state of this class to the array
       .then( errors => {
           if(errors.length){
               this.setState( { errors } );
           } else {
-              context.actions.signIn( context.authenticatedUser.emailAddress, context.authenticatedUser.password )
+              context.actions.signIn( emailAddress, password )
                   .then(() => {
                       this.props.history.push('/');
                   });
