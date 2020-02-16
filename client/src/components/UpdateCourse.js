@@ -43,7 +43,6 @@ export default class UpdateCourse extends Component {
         } = this.state;
 
         return (
-            // Modeled from React Authentication Courses and Sample Markup: update-course.html
             <div className="bounds course--detail">
             <h1>Update Course</h1>
               <div>

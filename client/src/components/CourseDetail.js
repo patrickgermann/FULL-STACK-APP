@@ -26,55 +26,49 @@ export default class CourseDetail extends Component {
   render() {
 
     const { context } = this.props;
-    const { course } = this.state;
-
-    console.log(course);
-
-    // variables to conditionally render "Update" and "Delete" buttons
+    const { course } = this.state; 
     const teacher = this.state.course.owner;
     const authUser = context.authenticatedUser;
     
 
-    // convert these texts into strings to pass to React Markdown
+    // for Markdown, we need String literals
     const description = `${course.description}`;
     const materials = `${course.materialsNeeded}`;
 
     return (
-      <div>
-      {/* Buttons */}
-        <div className="actions--bar">
-          <div className="bounds">
-            <div className="grid-100">
-              {/* conditionally render "Update" and "Delete" buttons */}
-              { authUser === null || authUser.id !== teacher.id
-                  ?
-                  <span></span>
-                  :
-                  <span>
-                    <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
-                    <Link className="button" onClick={this.deleteCourse} to='/courses/delete'>Delete Course</Link>
-                  </span>
-              }
-                <a className="button button-secondary" href="/">Return to List</a></div>
+      <div className="actions--bar">
+        {/* Buttons */}
+        <div className="bounds">
+          <div className="grid-100">
+            { authUser === null || authUser.id !== teacher.id
+              ?
+              <span></span>
+              :
+              <span>
+                <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
+                <Link className="button" onClick={this.deleteCourse} to='/courses/delete'>Delete Course</Link>
+              </span>
+            }
+            <a className="button button-secondary" href="/">Return to List</a>
           </div>
         </div>
-        {/* Course details */}
-        <div className="bounds course--detail">
-          <div className="grid-66">
-            {/* Course title */}
-            <div className="course--header">
-              <h4 className="course--label">Course</h4>
-              <h3 className="course--title">{course.title}</h3>
-              <p>By {teacher.firstName} {teacher.lastName}</p>
+          {/* Course details */}
+          <div className="bounds course--detail">
+            <div className="grid-66">
+              {/* Course title */}
+              <div className="course--header">
+                <h4 className="course--label">Course</h4>
+                <h3 className="course--title">{course.title}</h3>
+                <p>By {teacher.firstName} {teacher.lastName}</p>
+              </div>
+              {/* Course description */}
+              <div className="course--description">
+                <ReactMarkdown source = { description } />
+              </div>
             </div>
-            {/* Course description */}
-            <div className="course--description">
-              <ReactMarkdown source = { description } />
-            </div>
-          </div>
-          <div className="grid-25 grid-right">
-            {/* Course time and materials */}
-            <div className="course--stats">
+            <div className="grid-25 grid-right">
+              {/* Course time and materials */}
+              <div className="course--stats">
               <ul className="course--stats--list">
                 <li className="course--stats--list--item">
                   <h4>Estimated Time</h4>
@@ -102,22 +96,19 @@ export default class CourseDetail extends Component {
 
         const password = context.authenticatedUser.password;
 
-        // pass the authenticated user's email and password and the courses id for the delete function to execute
+        // Delete user needs email and password of authenticated user
         context.data.deleteCourse(owner.emailAddress, password, id)
         .then( errors => {
           if(errors.length){
               this.setState( { errors } );
           } else {
-             // change the location of the Window object to the index route
-             // to allow the courses to rerender when a course is deleted
+             // Go back to Courses
               window.location.href = '/';
             }
         })
-      // handle rejected promises
       .catch(err => {
         console.log(err);
           this.props.history.push('/error'); // push to history stack
-
       });
 
   }
