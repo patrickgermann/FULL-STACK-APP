@@ -1,5 +1,5 @@
 # Full Stack App with React and a REST API
-### Treehouse Project #10
+Treehouse Project #10
 
 ## Course Database Backend
 
@@ -18,14 +18,14 @@ Course Manager to create, update and delete Courses.
 You need to deploy and start the API first:
 
 1. Navigate to project folder and open Terminal
-2. Open API subfolder `cd api`
+2. Open API subfolder: `cd api`
 3. Install modules using npm: `npm install`
 4. Launch the API project: `npm start` 
 
 The API will be running on `localhost:5000`
 
 5. Now open a new Terminal for the project folder
-6. Open API subfolder `cd client`
+6. Open API subfolder: `cd client`
 7. Install modules using npm: `npm install`
 8. Launch the API project: `npm start` 
 
