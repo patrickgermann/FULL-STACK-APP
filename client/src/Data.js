@@ -87,6 +87,23 @@ export default class Data {
       }
   }
 
+  // PUT a course update
+  async updateCourse(course, emailAddress, password) {
+    const response = await this.api(`/courses/${course.id}`, 'PUT', course, true, { emailAddress, password });
+    if (response.status === 204) {
+      return [];
+    }
+    else if (response.status === 401) {
+        return null;
+    } else if (response.status === 400) {
+      return response.json().then(data => {
+        return data.error.err.errors;
+      });        
+    } else {
+      throw new Error();
+    }
+  } 
+
   //  DELETE a course, Auth = true but no private route
   async deleteCourse(emailAddress, password, id) {
     const response = await this.api(`/courses/${id}`, 'DELETE', null, true, { emailAddress, password });
