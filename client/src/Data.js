@@ -58,7 +58,7 @@ export default class Data {
 
   // GET details of course
   async getCourse(id) {
-      const response = await this.api(`${id}`, 'GET', null, false);
+      const response = await this.api(`/courses/${id}`, 'GET', null, false);
     
     if (response.status === 200) {
       return response.json().then(data => data);
@@ -71,8 +71,8 @@ export default class Data {
     }
   }
 
-    // POST a new a course
-    async createCourse(course, emailAddress, password) {
+  // POST a new a course
+  async createCourse(course, emailAddress, password) {
       const response = await this.api('/courses', 'POST', course, true, { emailAddress, password });
       if (response.status === 201) {
         return [];
@@ -87,5 +87,18 @@ export default class Data {
       }
   }
 
+  //  DELETE a course, Auth = true but no private route
+  async deleteCourse(emailAddress, password, id) {
+    const response = await this.api(`/courses/${id}`, 'DELETE', null, true, { emailAddress, password });
+    if (response.status === 204) {
+      return [];
+    }
+    else if (response.status === 401) {
+        return null;
+    }
+    else {
+        throw new Error();
+    }
+  }
 }
 

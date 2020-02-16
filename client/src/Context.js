@@ -38,6 +38,7 @@ export class Provider extends Component {
   signIn = async (emailAddress, password) => {
     const user = await this.data.getUser(emailAddress, password);
     if (user !== null) {
+      // api sends only emailAddress back, so add password to user for cookie
       user.password = password;
       this.setState(() => {
         return {
