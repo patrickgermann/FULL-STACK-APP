@@ -94,7 +94,7 @@ export default class Data {
       }
       else if (response.status === 400) {
         return response.json().then(data => {
-          return data.error.err.errors;
+          return data.error;
         });
       }
       else {
@@ -112,7 +112,7 @@ export default class Data {
         return null;
     } else if (response.status === 400) {
       return response.json().then(data => {
-        return data.error.err.errors;
+        return data.error;
       });        
     } else {
       throw new Error();

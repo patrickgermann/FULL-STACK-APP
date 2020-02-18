@@ -174,7 +174,7 @@ router.post('/users', asyncHandler(async (req, res) => {
         res.status(400).json({ error:errorMessage });
       });
     } else {
-      res.status(400).json({ message: "Both title and description needed to be filled." });
+      res.status(400).json({ error: ["Both title and description needed to be filled."] });
     }
   }));
 

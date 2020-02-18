@@ -142,13 +142,11 @@ export default class CreateCourse extends Component {
       materialsNeeded,
     };
 
-    //console.log(course);
-
     context.data.createCourse( course, emailAddress, password )
     // if the promise is an array of errors, set the errors state of this class to the array
       .then( errors => {
           if(errors.length){
-              this.setState( { errors } );
+              this.setState({ errors });
           } else {
               context.actions.signIn( emailAddress, password )
                   .then(() => {
